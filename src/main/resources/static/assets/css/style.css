@@ -355,7 +355,7 @@ h6 {
 # Header
 --------------------------------------------------------------*/
 .logo {
-  line-height: 1;
+  line-height: 2;
 }
 
 @media (min-width: 1200px) {
@@ -365,7 +365,7 @@ h6 {
 }
 
 .logo img {
-  max-height: 26px;
+  max-height: 32px;
   margin-right: 6px;
 }
 
