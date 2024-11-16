@@ -1,12 +1,12 @@
-<html lang="en" th:replace="~{shared/_layout::layout('Home Page', '', ~{::div#naja}, '', ~{::ol.breadcrumb})}">
+<html lang="en" th:replace="~{shared/_layout::layout('Drivers Admin', '', ~{::div#naja}, '', ~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-    <li class="breadcrumb-item active">Dashboard</li>
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active">Drivers</li>
 </ol>
 
 <div id="naja">
-
+    <p>Show Drivers Lists here</p>
 </div>
 
 </html>

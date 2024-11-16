@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" th:replace="~{shared/_layout::layout('Home Page', '', ~{::div#naja}, '', ~{::ol.breadcrumb})}">
 
-</body>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active">Dashboard</li>
+</ol>
+
+<div id="naja">
+
+</div>
+
 </html>
