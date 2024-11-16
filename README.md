@@ -14,10 +14,11 @@ This project is a Fleet Management System built using Java Spring Boot. It allow
 - Spring Boot
 - Spring Data JPA
 - Hibernate
-- MySQL
 - Thymeleaf
 - HTML/CSS/JavaScript
 - PostgreSQL
+- Lombok
+
 
 ## Prerequisites
 - Java 11 or higher
