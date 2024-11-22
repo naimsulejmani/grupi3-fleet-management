@@ -1,0 +1,48 @@
+<html lang="en" th:replace="~{shared/_layout::layout('Fuel Providers', '', ~{::div#naja}, '', ~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active">Fuel Providers</li>
+</ol>
+
+<div id="naja">
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Fuel Providers List</h5>
+            <a th:href="@{/fuel-providers/new}" class="btn btn-primary">+</a>
+            <!-- Active Table -->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Contact</th>
+                    <th scope="col">(action)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="fuelProvider: ${fuelProviders}" th:object="${fuelProvider}">
+                    <th scope="row" th:text="*{id}"></th>
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{city}"></td>
+                    <td th:text="*{country}"></td>
+                    <td>Email: <span th:text="*{email}"></span>
+                        | Phone: <span th:text="*{phoneNumber}"></span></td>
+                    <td>
+                        <a th:href="@{/fuel-providers/{id}/details(id=*{id})}" class="btn btn-light">Details</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- End Active Table -->
+
+        </div>
+    </div>
+
+
+</div>
+
+</html>

@@ -12,16 +12,9 @@ public class FuelProviderService {
 
     public FuelProviderService(FuelProviderRepository fuelProviderRepository) {
         this.fuelProviderRepository = fuelProviderRepository;
-        save(new FuelProvider(0,
-                "Shell",
-                "Rruga e Kavajes",
-                "Tirane",
-                "Albania",
-                "1001",
-                "0691234567",
-                "ZP8lE@example.com",
-                "1111","1112","1113"));
+
     }
+
 
     public List<FuelProvider> findAll() {
         return fuelProviderRepository.findAll(); // SELECT * FROM fuel_providers;

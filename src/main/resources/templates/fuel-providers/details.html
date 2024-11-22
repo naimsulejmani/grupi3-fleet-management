@@ -1,0 +1,73 @@
+<html lang="en" th:replace="~{shared/_layout::layout('Fuel Providers', '', ~{::div#naja}, '', ~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/fuel-providers}">Fuel Providers</a></li>
+    <li class="breadcrumb-item active">Details</li>
+</ol>
+
+<div id="naja">
+
+    <div class="card">
+        <div class="card-body" th:object="${fuelProvider}">
+
+            <h5 class="card-title">Profile Details</h5>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-4 label ">Name</div>
+                <div class="col-lg-9 col-md-8" th:text="*{name}"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-4 label">Address</div>
+                <div class="col-lg-9 col-md-8" th:text="*{address}"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-4 label">City</div>
+                <div class="col-lg-9 col-md-8" th:text="*{city}"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-4 label">Country</div>
+                <div class="col-lg-9 col-md-8" th:text="*{country}"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-4 label">Postal Code</div>
+                <div class="col-lg-9 col-md-8" th:text="*{postalCode}"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-4 label">Phone Number</div>
+                <div class="col-lg-9 col-md-8" th:text="*{phoneNumber}"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-4 label">Email</div>
+                <div class="col-lg-9 col-md-8" th:text="*{email}"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-4 label">Fiscal No</div>
+                <div class="col-lg-9 col-md-8" th:text="*{fiscalNo}"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-4 label">Business No</div>
+                <div class="col-lg-9 col-md-8" th:text="*{businessNo}"></div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-3 col-md-4 label">VAT No</div>
+                <div class="col-lg-9 col-md-8" th:text="*{vatNo}"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+</html>

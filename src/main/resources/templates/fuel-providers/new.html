@@ -1,0 +1,108 @@
+<html lang="en" th:replace="~{shared/_layout::layout('Fuel Providers', '', ~{::div#naja}, '', ~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/fuel-providers}">Fuel Providers</a></li>
+    <li class="breadcrumb-item active">Register</li>
+</ol>
+
+<div id="naja">
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Register New Fuel Provider</h5>
+
+                <form th:object="${fuelProvider}" method="post">
+                    <input type="hidden" th:field="*{id}"/>
+                    <div class="row mb-3">
+                        <label for="name" class="col-sm-1 col-form-label">Name</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" th:field="*{name}"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="address" class="col-sm-1 col-form-label">Address</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" th:field="*{address}"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="city" class="col-sm-1 col-form-label">City</label>
+                        <div class="col-sm-5">
+                            <select class="form-select" th:field="*{city}">
+                                <option value="">Not Specified</option>
+                                <option value="Prishtine">Prishtine</option>
+                                <option value="Prizren">Prizren</option>
+                                <option value="Peje">Peje</option>
+                                <option value="Gjilan">Gjilan</option>
+                                <option value="Gjakove">Gjakove</option>
+                                <option value="Ferizaj">Ferizaj</option>
+                                <option value="Mitrovice">Mitrovice</option>
+                                <option value="Komoran">Komoran</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="country" class="col-sm-1 col-form-label">Country</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" th:field="*{country}"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="postalCode" class="col-sm-1 col-form-label">Postal Code</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" th:field="*{postalCode}"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="phoneNumber" class="col-sm-1 col-form-label">Phone Number</label>
+                        <div class="col-sm-5">
+                            <input type="tel" class="form-control" th:field="*{phoneNumber}"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="email" class="col-sm-1 col-form-label">Email</label>
+                        <div class="col-sm-5">
+                            <input type="email" class="form-control" th:field="*{email}"/>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="fiscalNo" class="col-sm-1 col-form-label">Fiscal No</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" th:field="*{fiscalNo}"/>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                        <label for="businessNo" class="col-sm-1 col-form-label">Business No</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" th:field="*{businessNo}"/>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="vatNo" class="col-sm-1 col-form-label">VAT No</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" th:field="*{vatNo}"/>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-5">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+                    </div>
+
+                </form>
+
+        </div>
+    </div>
+
+
+</div>
+
+</html>

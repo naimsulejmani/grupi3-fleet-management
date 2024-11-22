@@ -28,6 +28,7 @@ public class FuelProvider {
     private String fiscalNo;
     private String vatNo;
     private String businessNo;
+
 }
 
 
