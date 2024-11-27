@@ -8,31 +8,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/drivers")
 public class DriversController {
-    private final String FOLDER_NAME = "drivers";
 
     @GetMapping("")
     public String drivers() {
-        return FOLDER_NAME + "/list";
+        return "drivers/list";
     }
 
     @GetMapping("/{id}/details")
     public String driverDetails() {
-        return FOLDER_NAME + "/details";
+        return "drivers/details";
     }
 
     @GetMapping("/create")
     public String createDriver() {
-        return FOLDER_NAME + "/create";
+        return "drivers/create";
     }
 
     @GetMapping("/{id}/edit")
     public String editDriver() {
-        return FOLDER_NAME + "/edit";
+        return "drivers/edit";
     }
 
     @GetMapping("/{id}/delete")
     public String deleteDriver() {
-        return FOLDER_NAME + "/delete";
+        return "drivers/delete";
     }
 
     @PostMapping("/create")
