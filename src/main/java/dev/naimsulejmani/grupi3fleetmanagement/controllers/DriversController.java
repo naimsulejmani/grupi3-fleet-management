@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -49,7 +50,8 @@ public class DriversController {
     }
 
     @PostMapping("/create")
-    public String addDriver() {
+    public String addDriver(@ModelAttribute Driver driver) {
+        service.add(driver);
         return "redirect:/drivers";
     }
 
