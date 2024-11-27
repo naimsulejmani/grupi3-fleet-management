@@ -1,6 +1,10 @@
 package dev.naimsulejmani.grupi3fleetmanagement.controllers;
 
+import dev.naimsulejmani.grupi3fleetmanagement.models.Driver;
+import dev.naimsulejmani.grupi3fleetmanagement.services.DriverService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,8 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/drivers")
 public class DriversController {
 
+    private final DriverService service;
+
+    // @Qualifier("emriIImplementimit") nese kemi me shume se nje implementues te service
+    public DriversController(DriverService service) {
+        this.service = service;
+    }
+
+
     @GetMapping("")
-    public String drivers() {
+    public String drivers(Model model) {
+        model.addAttribute("drivers", service.findAll());
         return "drivers/list";
     }
 
@@ -20,7 +33,8 @@ public class DriversController {
     }
 
     @GetMapping("/create")
-    public String createDriver() {
+    public String createDriver(Model model) {
+        model.addAttribute("driver", new Driver());
         return "drivers/create";
     }
 

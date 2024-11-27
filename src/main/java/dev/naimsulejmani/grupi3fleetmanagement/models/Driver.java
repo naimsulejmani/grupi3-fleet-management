@@ -40,5 +40,7 @@ public class Driver {
     private String postalCode;
     private String drivingLicenseNo;
     private boolean active;
+    private String photo;
+    private String notes;
 
 }

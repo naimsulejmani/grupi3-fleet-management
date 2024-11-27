@@ -1,12 +1,62 @@
 <html lang="en" th:replace="~{shared/_layout::layout('Drivers Admin', '', ~{::div#naja}, '', ~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a th:href="@{/drivers}">Drivers</a></li>
-    <li class="breadcrumb-item active">List</li>
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active">Drivers</li>
 </ol>
 
 <div id="naja">
-    <p>Show Drivers Lists here</p>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">List of drivers</h5>
+
+            <div class="row col-2">
+                <a th:href="@{/drivers/create}" class="btn btn-primary btn-sm">+ Add New Driver</a>
+                <hr/>
+            </div>
+
+            <div class="row col" th:unless="${drivers!=null && drivers.size()>0}">
+                <div class="alert alert-warning" role="alert">
+                    <strong>There are no drivers in the system!</strong>
+                </div>
+            </div>
+
+            <!-- Table with hoverable rows -->
+            <table class="table table-hover" th:if="${drivers!=null && drivers.size()>0}">
+                <thead>
+                <tr>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Full name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Driver Licence Category</th>
+                    <th scope="col">(action)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="driver: ${drivers}" th:object="${driver}">
+                    <th scope="row">
+                        <img th:src="${driver.photo}" th:alt="*{'NO PICTURE FOR ID '+id}" class="img-thumbnail"
+                             style="width: 60px; height: 60px;">
+                    </th>
+                    <td>
+                        <span th:text="*{firstName}"></span> &nbsp;
+                        <span th:text="*{lastName}"></span>
+                    </td>
+                    <td th:text="*{gender}"></td>
+                    <td th:text="*{drivingLicenseNo}"></td>
+                    <td>
+                        <a th:href="@{/drivers/{id}/details(id=*{id})}" class="btn btn-secondary btn-sm">Details</a>
+                        <a th:href="@{/drivers/{id}/edit(id=*{id})}" class="btn btn-primary btn-sm">Edit</a>
+                        <a th:href="@{/drivers/{id}/delete(id=*{id})}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- End Table with hoverable rows -->
+
+        </div>
+    </div>
 </div>
 
 </html>

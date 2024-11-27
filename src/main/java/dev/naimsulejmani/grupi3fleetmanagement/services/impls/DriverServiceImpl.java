@@ -3,10 +3,11 @@ package dev.naimsulejmani.grupi3fleetmanagement.services.impls;
 import dev.naimsulejmani.grupi3fleetmanagement.models.Driver;
 import dev.naimsulejmani.grupi3fleetmanagement.repositories.DriverRepository;
 import dev.naimsulejmani.grupi3fleetmanagement.services.DriverService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DriverServiceImpl implements DriverService {
 
 
@@ -23,22 +24,42 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public Driver findById(Long id) {
-        return null;
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public Driver add(Driver driver) {
-        return null;
+        //kontrollo a ekziston nje driver me kete id
+        var existingDriver = findById(driver.getId());
+
+        if (existingDriver != null) {
+            System.out.println("Driver me kete id ekziston: " + driver.getId());
+            return null;
+        }
+
+        return repository.save(driver);
     }
 
     @Override
     public Driver modify(Driver driver) {
-        return null;
+
+        var existingDriver = findById(driver.getId());
+        if (existingDriver == null) {
+            System.out.println("Driver me kete id nuk ekziston: " + driver.getId());
+            return null;
+        }
+        return repository.save(driver);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        var existingDriver = findById(id);
+        if (existingDriver == null) {
+            System.out.println("Driver me kete id nuk ekziston: " + id);
+            return;
+        }
+        repository.deleteById(id);
+//        repository.delete(existingDriver);
     }
 
     @Override
