@@ -27,7 +27,9 @@ public class DriversController {
     }
 
     @GetMapping("/{id}/details")
-    public String driverDetails() {
+    public String driverDetails(@PathVariable long id, Model model) {
+        var driver = service.findById(id);
+        model.addAttribute("driver", driver);
         return "drivers/details";
     }
 
@@ -45,7 +47,9 @@ public class DriversController {
     }
 
     @GetMapping("/{id}/delete")
-    public String deleteDriver() {
+    public String deleteDriver(@PathVariable long id, Model model) {
+        var driver = service.findById(id);
+        model.addAttribute("driver", driver);
         return "drivers/delete";
     }
 
@@ -72,7 +76,8 @@ public class DriversController {
     }
 
     @PostMapping("/{id}/delete")
-    public String removeDriver() {
+    public String removeDriver(@PathVariable long id) {
+        service.deleteById(id);
         return "redirect:/drivers";
     }
 

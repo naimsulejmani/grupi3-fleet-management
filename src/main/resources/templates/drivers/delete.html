@@ -6,7 +6,14 @@
 </ol>
 
 <div id="naja">
-    <p>Show Driver details and you can delete here!</p>
+    <th:block th:replace="~{/drivers/details.html::#driverDetails}"></th:block>
+    <div class="row">
+        <div class="col">
+            <form method="post">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 </html>

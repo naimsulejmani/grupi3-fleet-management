@@ -1,12 +1,170 @@
 <html lang="en" th:replace="~{shared/_layout::layout('Drivers Admin', '', ~{::div#naja}, '', ~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
     <li class="breadcrumb-item"><a th:href="@{/drivers}">Drivers</a></li>
     <li class="breadcrumb-item active">Details</li>
 </ol>
 
 <div id="naja">
-    <p>Show Driver details here</p>
+
+
+    <section class="section profile" id="driverDetails">
+        <div class="card" th:unless="${driver!=null}">
+            <div class="card-body">
+
+                <div style="margin: 5px;">
+                    <div class="alert alert-danger" role="alert">
+                        Driver not found
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row" th:object="${driver}" th:if="${driver!=null}">
+            <div class="col-xl-4">
+
+                <div class="card">
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                        <img th:src="*{photo}" alt="Profile" class="rounded-circle">
+                        <h2><span th:text="*{firstName}"></span> <span th:text="*{lastName}"></span></h2>
+                        <h3>Super Driver</h3>
+                        <div class="social-links mt-2">
+                            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-xl-8">
+
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <!-- Bordered Tabs -->
+                        <ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview"
+                                        aria-selected="true" role="tab">Overview
+                                </button>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit"
+                                        aria-selected="false" role="tab" tabindex="-1">Edit Profile
+                                </button>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings"
+                                        aria-selected="false" role="tab" tabindex="-1">Settings
+                                </button>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password"
+                                        aria-selected="false" role="tab" tabindex="-1">Change Password
+                                </button>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content pt-2">
+
+                            <div class="tab-pane fade profile-overview active show" id="profile-overview"
+                                 role="tabpanel">
+                                <h5 class="card-title">About</h5>
+                                <p class="small fst-italic" th:text="*{notes}"></p>
+
+                                <h5 class="card-title">Profile Details</h5>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                    <div class="col-lg-9 col-md-8"><span th:text="*{firstName}"></span> <span
+                                            th:text="*{lastName}"></span></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Birthdate</div>
+                                    <div class="col-lg-9 col-md-8" th:text="*{birthDate}"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Gender</div>
+                                    <div class="col-lg-9 col-md-8" th:text="*{gender}">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Email</div>
+                                    <div class="col-lg-9 col-md-8" th:text="*{email}"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Address</div>
+                                    <div class="col-lg-9 col-md-8" th:text="*{address}"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Phone</div>
+                                    <div class="col-lg-9 col-md-8" th:text="*{phoneNumber}"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">City</div>
+                                    <div class="col-lg-9 col-md-8" th:text="*{city}"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Country</div>
+                                    <div class="col-lg-9 col-md-8" th:text="*{country}"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Postal Code</div>
+                                    <div class="col-lg-9 col-md-8" th:text="*{postalCode}"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Driving Licence</div>
+                                    <div class="col-lg-9 col-md-8" th:text="*{drivingLicenseNo}"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Active</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <i th:class="${driver.active ? 'bi bi-check-circle text-success' : 'bi bi-x-circle text-danger'}"
+                                           style="font-size: 25px"></i>
+                                        <span th:text="${driver.active ? 'Yes' : 'No'}"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="tab-pane fade profile-edit pt-3" id="profile-edit" role="tabpanel">
+                                <p>The page is still under construction!</p>
+                            </div>
+
+                            <div class="tab-pane fade pt-3" id="profile-settings" role="tabpanel">
+                                <p>The page is still under construction!</p>
+                            </div>
+
+                            <div class="tab-pane fade pt-3" id="profile-change-password" role="tabpanel">
+                                <p>The page is still under construction!</p>
+                            </div>
+                        </div><!-- End Bordered Tabs -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 </div>
 
 </html>
