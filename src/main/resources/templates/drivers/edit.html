@@ -6,7 +6,23 @@
 </ol>
 
 <div id="naja">
-    <p>Show Driver details and you can edit here!</p>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Modify the Driver</h5>
+
+            <th:block th:replace="~{/drivers/create.html::#driverForm}" th:if="${driver!=null}">
+
+            </th:block>
+
+            <div th:unless="${driver!=null}">
+                <div class="alert alert-danger" role="alert">
+                    Driver not found
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 </div>
 
 </html>

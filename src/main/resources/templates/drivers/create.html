@@ -11,25 +11,25 @@
         <div class="card-body">
             <h5 class="card-title">Register New Driver</h5>
 
-            <form th:object="${driver}" method="post">
+            <form th:object="${driver}" method="post" id="driverForm">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="row mb-3">
                     <label for="personal" class="col-sm-1 col-form-label">Personal No:</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" th:field="*{personalNo}"/>
+                        <input type="text" class="form-control" th:field="*{personalNo}" required/>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="firstName" class="col-sm-1 col-form-label">First Name:</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" th:field="*{firstName}"/>
+                        <input type="text" class="form-control" th:field="*{firstName}" required/>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="lastName" class="col-sm-1 col-form-label">LastName:</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" th:field="*{lastName}"/>
+                        <input type="text" class="form-control" th:field="*{lastName}" required/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -47,13 +47,13 @@
                 <div class="row mb-3">
                     <label for="phoneNumber" class="col-sm-1 col-form-label">Phone Number</label>
                     <div class="col-sm-5">
-                        <input type="tel" class="form-control" th:field="*{phoneNumber}"/>
+                        <input type="tel" class="form-control" th:field="*{phoneNumber}" required/>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="email" class="col-sm-1 col-form-label">Email</label>
                     <div class="col-sm-5">
-                        <input type="email" class="form-control" th:field="*{email}"/>
+                        <input type="email" class="form-control" th:field="*{email}" required/>
                     </div>
                 </div>
 
@@ -107,10 +107,11 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-1 col-form-label" for="birthdate">Birthdate</label>
+                    <label class="col-sm-1 col-form-label" for="birthDate">Birthdate</label>
                     <div class="col-sm-5">
                         <div class="form-check form-switch">
-                            <input class="form-control" type="date" th:field="*{birthDate}">
+                            <input class="form-control" type="date" name="birthDate" id="birthDate"
+                                   th:value="*{birthDate}" required>
                         </div>
                     </div>
                 </div>
