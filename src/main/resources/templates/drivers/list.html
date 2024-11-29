@@ -7,6 +7,13 @@
 
 <div id="naja">
 
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${errorMessage!=null}">
+        <i class="bi bi-exclamation-triangle me-1"></i>
+        <strong th:text="${errorMessage}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">List of drivers</h5>

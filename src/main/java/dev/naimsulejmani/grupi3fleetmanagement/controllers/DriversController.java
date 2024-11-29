@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/drivers")
@@ -55,7 +56,18 @@ public class DriversController {
     }
 
     @PostMapping("/{id}/edit")
-    public String modifyDriver() {
+    public String modifyDriver(@ModelAttribute Driver driver, @PathVariable long id, RedirectAttributes redirectAttributes) {
+
+        if (driver.getId() != id) {
+            //kjo i dergohet si parameter ne query string
+            redirectAttributes.addAttribute("errorId", "DR404");
+            //kjo i dergohet si objekt ne html
+            redirectAttributes.addFlashAttribute("errorMessage", "Driver ID does not match");
+            return "redirect:/drivers";
+        }
+
+        service.modify(driver);
+
         return "redirect:/drivers";
     }
 
