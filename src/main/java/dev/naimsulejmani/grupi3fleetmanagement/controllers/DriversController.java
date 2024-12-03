@@ -2,11 +2,15 @@ package dev.naimsulejmani.grupi3fleetmanagement.controllers;
 
 import dev.naimsulejmani.grupi3fleetmanagement.models.Driver;
 import dev.naimsulejmani.grupi3fleetmanagement.services.DriverService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/drivers")
@@ -36,6 +40,8 @@ public class DriversController {
     @GetMapping("/create")
     public String createDriver(Model model) {
         model.addAttribute("driver", new Driver());
+        model.addAttribute("from", LocalDate.now().minusYears(65));
+        model.addAttribute("today", LocalDate.now());
         return "drivers/create";
     }
 
@@ -54,7 +60,14 @@ public class DriversController {
     }
 
     @PostMapping("/create")
-    public String addDriver(@ModelAttribute Driver driver) {
+    public String addDriver(@Valid @ModelAttribute Driver driver, BindingResult bindingResult
+            , RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(System.out::println);
+            return "drivers/create";
+        }
+        redirectAttributes.addFlashAttribute("successMessage", "Driver added successfully");
+
         service.add(driver);
         return "redirect:/drivers";
     }
