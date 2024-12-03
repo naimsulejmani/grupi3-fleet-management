@@ -1,4 +1,4 @@
-package dev.naimsulejmani.grupi3fleetmanagement.models;
+package dev.naimsulejmani.grupi3fleetmanagement.enums;
 
 public enum FuelType {
     DIESEL,

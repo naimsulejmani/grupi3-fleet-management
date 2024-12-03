@@ -1,5 +1,8 @@
 package dev.naimsulejmani.grupi3fleetmanagement.models;
 
+import dev.naimsulejmani.grupi3fleetmanagement.enums.FuelType;
+import dev.naimsulejmani.grupi3fleetmanagement.enums.TransmissionType;
+import dev.naimsulejmani.grupi3fleetmanagement.enums.VehicleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
