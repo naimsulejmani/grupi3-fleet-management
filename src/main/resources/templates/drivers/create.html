@@ -11,7 +11,7 @@
         <div class="card-body">
             <h5 class="card-title">Register New Driver</h5>
 
-            <form th:object="${driver}" method="post" id="driverForm">
+            <form th:object="${driver}" method="post" id="driverForm" enctype="multipart/form-data">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="row mb-3">
                     <label for="personal" class="col-sm-1 col-form-label">Personal No:</label>
@@ -134,7 +134,8 @@
                     <label class="col-sm-1 col-form-label" for="active">Photo</label>
                     <div class="col-sm-5">
                         <div class="form-check form-switch">
-                            <input class="form-control" type="text" th:field="*{photo}">
+                            <input class="form-control" type="hidden" th:field="*{photo}">
+                            <input type="file" class="form-control" id="photoFile" name="photoFile" accept="image/*">
                         </div>
                     </div>
                 </div>
