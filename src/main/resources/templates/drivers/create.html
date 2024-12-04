@@ -129,13 +129,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="row mb-3" th:if="*{photo!=null && !photo.isBlank()}">
+                    <label class="col-sm-1 col-form-label" for="active">Photo</label>
+                    <div class="col-sm-5">
+                        <img th:src="*{photo}" class="img-thumbnail" style="width: 100px; height: 100px;"/>
+                    </div>
+                </div>
 
                 <div class="row mb-3">
                     <label class="col-sm-1 col-form-label" for="active">Photo</label>
                     <div class="col-sm-5">
                         <div class="form-check form-switch">
                             <input class="form-control" type="hidden" th:field="*{photo}">
-                            <input type="file" class="form-control" id="photoFile" name="photoFile" accept="image/*">
+                            <input type="file" class="form-control" id="photoFile" name="photoFile" accept="image/*"
+                                  >
                         </div>
                     </div>
                 </div>

@@ -99,7 +99,9 @@ public class DriversController {
     }
 
     @PostMapping("/{id}/edit")
-    public String modifyDriver(@ModelAttribute Driver driver, @PathVariable long id, RedirectAttributes redirectAttributes) {
+    public String modifyDriver(
+            @ModelAttribute Driver driver, @PathVariable long id, RedirectAttributes redirectAttributes,
+            @RequestParam("photoFile") MultipartFile photoFile) {
 
         if (driver.getId() != id) {
             //kjo i dergohet si parameter ne query string
@@ -107,6 +109,17 @@ public class DriversController {
             //kjo i dergohet si objekt ne html
             redirectAttributes.addFlashAttribute("errorMessage", "Driver ID does not match");
             return "redirect:/drivers";
+        }
+
+        if (!photoFile.isEmpty()) {
+            try {
+                var fileName = fileHelper.uploadFile("target/classes/static/assets/img/drivers"
+                        , photoFile.getOriginalFilename()
+                        , photoFile.getBytes());
+                driver.setPhoto("/assets/img/drivers/" + fileName);
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
         }
 
         service.modify(driver);
