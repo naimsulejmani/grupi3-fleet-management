@@ -24,5 +24,7 @@ public interface DriverRepository extends JpaRepository<Driver, Long> {
     List<Driver> findAllByFirstNameOrLastNameOrCityOrBirthDate(String firstName, String lastName, String city, LocalDate birthDate);
     // SELECT * FROM drivers WHERE first_name = ? OR last_name = ? OR city = ? OR birth_date = ?
 
+    List<Driver> findAllByEmailEndingWithAndPhoneNumberStartingWith(String email, String phoneNumber);
+    // SELECT * FROM drivers WHERE email LIKE %? AND phone_number LIKE ?%
 
 }
