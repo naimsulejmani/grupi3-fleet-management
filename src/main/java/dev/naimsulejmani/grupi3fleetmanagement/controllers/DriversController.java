@@ -1,5 +1,6 @@
 package dev.naimsulejmani.grupi3fleetmanagement.controllers;
 
+import dev.naimsulejmani.grupi3fleetmanagement.helpers.FileHelper;
 import dev.naimsulejmani.grupi3fleetmanagement.models.Driver;
 import dev.naimsulejmani.grupi3fleetmanagement.services.DriverService;
 import jakarta.validation.Valid;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -17,10 +19,12 @@ import java.time.LocalDate;
 public class DriversController {
 
     private final DriverService service;
+    private final FileHelper fileHelper;
 
     // @Qualifier("emriIImplementimit") nese kemi me shume se nje implementues te service
-    public DriversController(DriverService service) {
+    public DriversController(DriverService service, FileHelper fileHelper) {
         this.service = service;
+        this.fileHelper = fileHelper;
     }
 
 
@@ -61,12 +65,25 @@ public class DriversController {
 
     @PostMapping("/create")
     public String addDriver(@Valid @ModelAttribute Driver driver, BindingResult bindingResult
-            , RedirectAttributes redirectAttributes) {
-        if(bindingResult.hasErrors()) {
+            , RedirectAttributes redirectAttributes,
+                            @RequestParam("photoFile") MultipartFile photoFile) {
+        if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
             return "drivers/create";
         }
+        System.out.println("Photo file: " + photoFile.getOriginalFilename());
         redirectAttributes.addFlashAttribute("successMessage", "Driver added successfully");
+
+        if (!photoFile.isEmpty()) {
+            try {
+                var fileName = fileHelper.uploadFile("target/classes/static/assets/img/drivers"
+                        , photoFile.getOriginalFilename()
+                        , photoFile.getBytes());
+                driver.setPhoto("/assets/img/drivers/" + fileName);
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
 
         service.add(driver);
         return "redirect:/drivers";
