@@ -72,7 +72,7 @@ public class DriversController {
             return "drivers/create";
         }
         System.out.println("Photo file: " + photoFile.getOriginalFilename());
-        redirectAttributes.addFlashAttribute("successMessage", "Driver added successfully");
+
 
         if (!photoFile.isEmpty()) {
             try {
@@ -85,7 +85,16 @@ public class DriversController {
             }
         }
 
-        service.add(driver);
+        var newDriver = service.add(driver);
+
+        if (newDriver == null) {
+            bindingResult.rejectValue("personalNo", "error.driver", "Driver already exists with that personal number");
+            bindingResult.rejectValue("email", "error.driver", "Driver already exists with that email");
+            return "drivers/create";
+//            redirectAttributes.addFlashAttribute("errorMessage", "Driver already exists with that email or personal number");
+//            return "redirect:/drivers";
+        }
+        redirectAttributes.addFlashAttribute("successMessage", "Driver added successfully");
         return "redirect:/drivers";
     }
 

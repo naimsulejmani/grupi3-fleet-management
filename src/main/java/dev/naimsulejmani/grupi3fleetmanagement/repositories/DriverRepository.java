@@ -27,4 +27,7 @@ public interface DriverRepository extends JpaRepository<Driver, Long> {
     List<Driver> findAllByEmailEndingWithAndPhoneNumberStartingWith(String email, String phoneNumber);
     // SELECT * FROM drivers WHERE email LIKE %? AND phone_number LIKE ?%
 
+    Long countAllByPersonalNoOrEmail(String personalNo, String email);
+    // SELECT COUNT(*) FROM drivers WHERE personal_no = ? OR email = ?
+
 }

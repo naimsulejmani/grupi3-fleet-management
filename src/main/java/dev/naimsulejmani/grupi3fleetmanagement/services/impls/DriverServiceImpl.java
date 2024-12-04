@@ -37,6 +37,13 @@ public class DriverServiceImpl implements DriverService {
             return null;
         }
 
+        long totalDrivers = repository.countAllByPersonalNoOrEmail(driver.getPersonalNo(), driver.getEmail());
+        if (totalDrivers > 0) {
+            System.out.println("Driver me kete personal number ose email ekziston: "
+                    + driver.getPersonalNo() + " ose " + driver.getEmail());
+            return null;
+        }
+
         return repository.save(driver);
     }
 
