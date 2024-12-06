@@ -45,7 +45,7 @@ public class User {
     @NotBlank(message = "Role is not provided, blank or empty")
     private String role;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, unique = true)
     @Size(min = 5, max = 50, message = "Email must be between 5 and 50 characters long")
     @NotBlank(message = "Email is not provided, blank or empty")
     @Email(message = "Email is not valid")
