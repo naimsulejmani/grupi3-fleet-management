@@ -1,5 +1,11 @@
-<html lang="en" th:replace="~{shared/_layout::layout('Home Page', '', ~{::div#naja}, '', ~{::ol.breadcrumb})}">
+<html lang="en" th:replace="~{shared/_layout::layout('Home Page', ~{::style#zbukurimet}, ~{::div#naja}, ~{::script#ekzekutimet}, ~{::ol.breadcrumb})}">
 
+<style id="zbukurimet">
+    .cacttus-text {
+        color: red;
+    }
+
+</style>
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
     <li class="breadcrumb-item active">Dashboard</li>
@@ -7,6 +13,19 @@
 
 <div id="naja">
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Dashboard</h1>
+                <p>Welcome to the dashboard <span th:text="${user.name + ' ' + user.surname}" class="cacttus-text"></span></p>
+            </div>
+        </div>
+    </div>
+
 </div>
 
+
+<script id="ekzekutimet">
+    console.log("Hello from the dashboard");
+</script>
 </html>
