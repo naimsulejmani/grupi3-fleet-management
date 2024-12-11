@@ -29,6 +29,9 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
             return;
         }
 
+        System.out.println(request.getMethod() + " -> " + request.getRequestURI());
+
+
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -61,6 +64,6 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
         }
 
 //        response.encodeRedirectURL("/login");
-        response.sendRedirect("/login");
+        response.sendRedirect("/login?returnUrl=" + request.getRequestURI());
     }
 }

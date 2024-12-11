@@ -3,12 +3,15 @@ package dev.naimsulejmani.grupi3fleetmanagement.controllers;
 import dev.naimsulejmani.grupi3fleetmanagement.models.User;
 import dev.naimsulejmani.grupi3fleetmanagement.services.UserService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AuthController {
@@ -25,7 +28,11 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute User user, HttpServletResponse response) {
+    public String login(
+            @ModelAttribute User user
+            , HttpServletRequest request
+            , HttpServletResponse response
+            , @RequestParam(value = "returnUrl", required = false) String returnUrl) {
         var searchUser = userService.login(user.getUsername(), user.getPassword());
         if (searchUser == null) {
             return "redirect:/login";
@@ -39,6 +46,13 @@ public class AuthController {
         cookie.setDomain("localhost");
 
         response.addCookie(cookie);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("user", searchUser);
+
+        if (returnUrl != null && !returnUrl.isBlank()) {
+            return "redirect:" + returnUrl;
+        }
 
         return "redirect:/";
     }
