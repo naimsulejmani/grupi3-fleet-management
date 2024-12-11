@@ -1,11 +1,13 @@
 package dev.naimsulejmani.grupi3fleetmanagement.security;
 
+import dev.naimsulejmani.grupi3fleetmanagement.models.User;
 import dev.naimsulejmani.grupi3fleetmanagement.services.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -29,20 +31,41 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
             return;
         }
 
-        System.out.println(request.getMethod() + " -> " + request.getRequestURI());
+//        System.out.println(request.getMethod() + " -> " + request.getRequestURI());
 
 
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("user-id")) {
-
-                    long userId = Long.parseLong(cookie.getValue());
-                    var user = userService.findById(userId);
+                    var user = userService.findById(Long.parseLong(cookie.getValue()));
                     if (user == null) {
                         break;
                     }
                     request.setAttribute("user", user);
+
+                    HttpSession session = request.getSession(false);
+                    if (session == null || session.getAttribute("user") == null) {
+                        session = request.getSession();
+                        session.setAttribute("user", user);
+                    } else {
+                        var sessionUser = (User) session.getAttribute("user");
+                        if (!sessionUser.getId().equals(user.getId())) {
+                            if (!request.getRequestURI().startsWith("/error500"))
+                                response.sendRedirect("/error500");
+                            else
+                                filterChain.doFilter(request, response);
+                            return;
+                        }
+                    }
+
+//                    long userId = Long.parseLong(cookie.getValue());
+//                    var user = userService.findById(userId);
+//                    if (user == null) {
+//                        break;
+//                    }
+
+//                    request.setAttribute("user", user);
                     // get user model from repository
                     //var user = userservice.findById(Long.parseLong(cookie.getValue()));
                     // append user to request

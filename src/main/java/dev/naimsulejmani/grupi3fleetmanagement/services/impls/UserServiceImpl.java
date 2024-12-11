@@ -11,6 +11,18 @@ public class UserServiceImpl implements UserService {
 
     public UserServiceImpl(UserRepository repository) {
         this.repository = repository;
+
+        if(repository.count()==1) {
+            User user = new User();
+            user.setUsername("amar");
+            user.setPassword("Amar123!");
+            user.setEmail("amar@amar.com");
+            user.setName("Amar");
+            user.setSurname("Sulejmani");
+            user.setRole("ROLE_ADMIN");
+            user.setPhone("045112233");
+            repository.save(user);
+        }
 //        User user = new User();
 //        user.setUsername("admin");
 //        user.setPassword("Admin123!");

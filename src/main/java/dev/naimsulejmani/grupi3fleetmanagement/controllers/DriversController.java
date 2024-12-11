@@ -2,7 +2,10 @@ package dev.naimsulejmani.grupi3fleetmanagement.controllers;
 
 import dev.naimsulejmani.grupi3fleetmanagement.helpers.FileHelper;
 import dev.naimsulejmani.grupi3fleetmanagement.models.Driver;
+import dev.naimsulejmani.grupi3fleetmanagement.models.User;
 import dev.naimsulejmani.grupi3fleetmanagement.services.DriverService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -66,7 +69,8 @@ public class DriversController {
     @PostMapping("/create")
     public String addDriver(@Valid @ModelAttribute Driver driver, BindingResult bindingResult
             , RedirectAttributes redirectAttributes,
-                            @RequestParam("photoFile") MultipartFile photoFile) {
+                            @RequestParam("photoFile") MultipartFile photoFile,
+                            HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
             return "drivers/create";
@@ -84,6 +88,14 @@ public class DriversController {
                 System.out.println("Error: " + e.getMessage());
             }
         }
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            User user = (User) session.getAttribute("user");
+            System.out.println("User: " + user);
+            // driver.setCreatedBy(user.getEmail());
+        }
+
 
         var newDriver = service.add(driver);
 

@@ -49,6 +49,7 @@ public class AuthController {
 
         HttpSession session = request.getSession();
         session.setAttribute("user", searchUser);
+        session.setAttribute("role", "ROLE_ADMIN");
 
         if (returnUrl != null && !returnUrl.isBlank()) {
             return "redirect:" + returnUrl;
@@ -58,10 +59,18 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public String logout(HttpServletResponse response) {
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = new Cookie("user-id", "");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.removeAttribute("user");
+            session.removeAttribute("role");
+            session.invalidate();
+        }
+
 
         return "redirect:/login";
     }
