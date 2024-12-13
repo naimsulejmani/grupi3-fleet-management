@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class AuthController {
@@ -84,25 +85,22 @@ public class AuthController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("userRegisterRequestDto", new UserRegistrationRequestDto());
+        model.addAttribute("userRegistrationRequestDto", new UserRegistrationRequestDto());
         return "auths/register";
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute UserRegistrationRequestDto userRegisterRequestDto,
-                           BindingResult bindingResult) {
+    public String register(@Valid @ModelAttribute UserRegistrationRequestDto userRegistrationRequestDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "auths/register";
         }
         try {
-            var user = userService.register(userRegisterRequestDto);
-        }
-        catch (UserNameExistException e ) {
-            bindingResult.rejectValue("username", "error.userRegisterRequestDto", "Username already exists");
+            var user = userService.register(userRegistrationRequestDto);
+        } catch (UserNameExistException e) {
+            bindingResult.rejectValue("username", "error.userRegistrationRequestDto", "Username already exists");
             return "auths/register";
-
         } catch (EmailExistException e) {
-            bindingResult.rejectValue("email", "error.userRegisterRequestDto", "Email already exists");
+            bindingResult.rejectValue("email", "error.userRegistrationRequestDto", "Email already exists");
             return "auths/register";
         }
         return "redirect:/login";

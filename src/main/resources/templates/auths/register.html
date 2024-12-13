@@ -64,7 +64,7 @@
                                     <p class="text-center small">Enter your personal details to create account</p>
                                 </div>
 
-                                <form class="row g-3 needs-validation" method="post" th:object="${userRegisterRequestDto}">
+                                <form class="row g-3 needs-validation" method="post" th:object="${userRegistrationRequestDto}">
                                     <div class="col-12">
                                         <label for="name" class="form-label">Name</label>
                                         <input type="text" th:field="*{name}" class="form-control" required minlength="3" maxlength="50">
