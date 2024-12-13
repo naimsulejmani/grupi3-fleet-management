@@ -3,6 +3,7 @@ package dev.naimsulejmani.grupi3fleetmanagement.controllers;
 import dev.naimsulejmani.grupi3fleetmanagement.dtos.UserRegistrationRequestDto;
 import dev.naimsulejmani.grupi3fleetmanagement.models.User;
 import dev.naimsulejmani.grupi3fleetmanagement.services.BadUserService;
+import dev.naimsulejmani.grupi3fleetmanagement.services.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AuthController {
     private final BadUserService badUserService;
+    private final UserService userService;
 
-    public AuthController(BadUserService badUserService) {
+    public AuthController(BadUserService badUserService, UserService userService) {
         this.badUserService = badUserService;
+        this.userService = userService;
     }
 
     @GetMapping("/login")
@@ -89,7 +92,7 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             return "auths/register";
         }
-//        userService.register(userRegistrationRequestDto);
+        var user = userService.register(userRegistrationRequestDto);
         return "redirect:/login";
     }
 }
