@@ -1,7 +1,7 @@
 package dev.naimsulejmani.grupi3fleetmanagement.security;
 
 import dev.naimsulejmani.grupi3fleetmanagement.models.User;
-import dev.naimsulejmani.grupi3fleetmanagement.services.UserService;
+import dev.naimsulejmani.grupi3fleetmanagement.services.BadUserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -16,10 +16,10 @@ import java.io.IOException;
 @Configuration
 public class CookieSessionSimpleFilter extends OncePerRequestFilter {
 
-    private final UserService userService;
+    private final BadUserService badUserService;
 
-    public CookieSessionSimpleFilter(UserService userService) {
-        this.userService = userService;
+    public CookieSessionSimpleFilter(BadUserService badUserService) {
+        this.badUserService = badUserService;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("user-id")) {
-                    var user = userService.findById(Long.parseLong(cookie.getValue()));
+                    var user = badUserService.findById(Long.parseLong(cookie.getValue()));
                     if (user == null) {
                         break;
                     }

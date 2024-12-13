@@ -2,13 +2,15 @@ package dev.naimsulejmani.grupi3fleetmanagement.controllers;
 
 import dev.naimsulejmani.grupi3fleetmanagement.dtos.UserRegistrationRequestDto;
 import dev.naimsulejmani.grupi3fleetmanagement.models.User;
-import dev.naimsulejmani.grupi3fleetmanagement.services.UserService;
+import dev.naimsulejmani.grupi3fleetmanagement.services.BadUserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AuthController {
-    private final UserService userService;
+    private final BadUserService badUserService;
 
-    public AuthController(UserService userService) {
-        this.userService = userService;
+    public AuthController(BadUserService badUserService) {
+        this.badUserService = badUserService;
     }
 
     @GetMapping("/login")
@@ -34,7 +36,7 @@ public class AuthController {
             , HttpServletRequest request
             , HttpServletResponse response
             , @RequestParam(value = "returnUrl", required = false) String returnUrl) {
-        var searchUser = userService.login(user.getUsername(), user.getPassword());
+        var searchUser = badUserService.login(user.getUsername(), user.getPassword());
         if (searchUser == null) {
             return "redirect:/login";
         }
@@ -79,6 +81,16 @@ public class AuthController {
     public String register(Model model) {
         model.addAttribute("userRegisterRequestDto", new UserRegistrationRequestDto());
         return "auths/register";
+    }
+
+    @PostMapping("/register")
+    public String register(@Valid @ModelAttribute UserRegistrationRequestDto userRegistrationRequestDto,
+                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "auths/register";
+        }
+//        userService.register(userRegistrationRequestDto);
+        return "redirect:/login";
     }
 }
 

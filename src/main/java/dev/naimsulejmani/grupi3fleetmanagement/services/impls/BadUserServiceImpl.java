@@ -2,14 +2,14 @@ package dev.naimsulejmani.grupi3fleetmanagement.services.impls;
 
 import dev.naimsulejmani.grupi3fleetmanagement.models.User;
 import dev.naimsulejmani.grupi3fleetmanagement.repositories.UserRepository;
-import dev.naimsulejmani.grupi3fleetmanagement.services.UserService;
+import dev.naimsulejmani.grupi3fleetmanagement.services.BadUserService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class BadUserServiceImpl implements BadUserService {
     private final UserRepository repository;
 
-    public UserServiceImpl(UserRepository repository) {
+    public BadUserServiceImpl(UserRepository repository) {
         this.repository = repository;
 
         if(repository.count()==1) {
