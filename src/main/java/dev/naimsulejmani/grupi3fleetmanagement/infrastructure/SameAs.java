@@ -5,16 +5,16 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
-@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE, ElementType.FIELD})
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = SameAsValidator.class)
 @Documented
 public @interface SameAs {
-    String fieldName();
-
-    String message() default "{javax.validation.constraints.SameAs.message}";
+    String message() default "Fields should match";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
+    String field(); // Name of the field to compare with
 }

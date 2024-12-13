@@ -2,36 +2,25 @@ package dev.naimsulejmani.grupi3fleetmanagement.infrastructure;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import org.springframework.beans.BeanWrapperImpl;
 
 public class SameAsValidator implements ConstraintValidator<SameAs, Object> {
 
-    private String fieldName;
+    private String field;
 
     @Override
     public void initialize(SameAs constraintAnnotation) {
-        this.fieldName = constraintAnnotation.fieldName();
+        this.field = constraintAnnotation.field();
     }
 
     @Override
-    public boolean isValid(Object object, ConstraintValidatorContext context) {
-        try {
-            Method method = object.getClass().getMethod("get" + capitalize(fieldName));
-            Object firstObj = method.invoke(object);
-            Method confirmMethod = object.getClass().getMethod("get" + capitalize("confirmPassword"));
-            Object secondObj = confirmMethod.invoke(object);
-            return firstObj == null && secondObj == null || firstObj != null && firstObj.equals(secondObj);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
+        if (value == null) {
+            return true; // Let @NotNull handle null values
         }
-    }
 
-    private String capitalize(String str) {
-        if (str == null || str.length() == 0) {
-            return str;
-        }
-        return str.substring(0, 1).toUpperCase() + str.substring(1);
+        Object fieldValue = new BeanWrapperImpl(value).getPropertyValue(field);
+
+        return value.equals(fieldValue);
     }
 }
