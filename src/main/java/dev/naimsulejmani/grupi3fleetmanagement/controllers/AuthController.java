@@ -1,6 +1,8 @@
 package dev.naimsulejmani.grupi3fleetmanagement.controllers;
 
 import dev.naimsulejmani.grupi3fleetmanagement.dtos.UserRegistrationRequestDto;
+import dev.naimsulejmani.grupi3fleetmanagement.exceptions.EmailExistException;
+import dev.naimsulejmani.grupi3fleetmanagement.exceptions.UserNameExistException;
 import dev.naimsulejmani.grupi3fleetmanagement.models.User;
 import dev.naimsulejmani.grupi3fleetmanagement.services.BadUserService;
 import dev.naimsulejmani.grupi3fleetmanagement.services.UserService;
@@ -87,12 +89,22 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute UserRegistrationRequestDto userRegistrationRequestDto,
+    public String register(@Valid @ModelAttribute UserRegistrationRequestDto userRegisterRequestDto,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "auths/register";
         }
-        var user = userService.register(userRegistrationRequestDto);
+        try {
+            var user = userService.register(userRegisterRequestDto);
+        }
+        catch (UserNameExistException e ) {
+            bindingResult.rejectValue("username", "error.userRegisterRequestDto", "Username already exists");
+            return "auths/register";
+
+        } catch (EmailExistException e) {
+            bindingResult.rejectValue("email", "error.userRegisterRequestDto", "Email already exists");
+            return "auths/register";
+        }
         return "redirect:/login";
     }
 }

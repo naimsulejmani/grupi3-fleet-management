@@ -68,19 +68,25 @@
                                     <div class="col-12">
                                         <label for="name" class="form-label">Name</label>
                                         <input type="text" th:field="*{name}" class="form-control" required minlength="3" maxlength="50">
-                                        <div class="invalid-feedback">Please, enter your name!</div>
+                                        <div>
+                                            <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
                                         <label for="surname" class="form-label">Surname</label>
                                         <input type="text" th:field="*{surname}" class="form-control" required minlength="3" maxlength="50">
-                                        <div class="invalid-feedback">Please, enter your surname!</div>
+                                        <div>
+                                            <span class="text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
                                         <label for="phone" class="form-label">Phone</label>
                                         <input type="text" th:field="*{phone}" class="form-control" required minlength="9" maxlength="20">
-                                        <div class="invalid-feedback">Please, enter your phone!</div>
+                                        <div>
+                                            <span class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+                                        </div>
                                     </div>
 
 
@@ -88,7 +94,9 @@
                                     <div class="col-12">
                                         <label for="email" class="form-label">Your Email</label>
                                         <input type="email" th:field="*{email}"  class="form-control" required>
-                                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                                        <div>
+                                            <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
@@ -96,7 +104,9 @@
                                         <div class="input-group has-validation">
                                             <span class="input-group-text" id="inputGroupPrepend">@</span>
                                             <input type="text" th:field="*{username}" class="form-control" required minlength="4" max="50">
-                                            <div class="invalid-feedback">Please choose a username.</div>
+                                            <div>
+                                                <span class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -104,21 +114,27 @@
                                         <label for="password" class="form-label">Password</label>
                                         <input type="password" th:field="*{password}" class="form-control" required minlength="8" maxlength="100"
                                         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
-                                        <div class="invalid-feedback">Please enter your password!</div>
+                                        <div>
+                                            <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
                                         <label for="confirmPassword" class="form-label">Confirm Password</label>
                                         <input type="password" th:field="*{confirmPassword}" class="form-control" required minlength="8" maxlength="100"
                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
-                                        <div class="invalid-feedback">Please enter your password!</div>
+                                        <div>
+                                            <span class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span>
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
                                         <div class="form-check">
                                             <input class="form-check-input" th:field="*{acceptTerms}" type="checkbox" required>
                                             <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                                            <div class="invalid-feedback">You must agree before submitting.</div>
+                                            <div>
+                                                <span class="text-danger" th:if="${#fields.hasErrors('acceptTerms')}" th:errors="*{acceptTerms}"></span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12">

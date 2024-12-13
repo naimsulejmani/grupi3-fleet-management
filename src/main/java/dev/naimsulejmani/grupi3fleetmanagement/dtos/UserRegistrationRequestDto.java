@@ -24,7 +24,7 @@ public class UserRegistrationRequestDto {
     @NotBlank(message = "Password is not provided, blank or empty")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$",
             message = "Password must contain at least one uppercase letter, one lowercase letter and one digit")
-    @SameAs(field = "password", message = "Passwords do not match")
+//    @SameAs(field = "password", message = "Passwords do not match")
     private String confirmPassword;
 
 
