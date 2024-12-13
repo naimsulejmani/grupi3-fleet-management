@@ -70,7 +70,8 @@ public class DriversController {
     public String addDriver(@Valid @ModelAttribute Driver driver, BindingResult bindingResult
             , RedirectAttributes redirectAttributes,
                             @RequestParam("photoFile") MultipartFile photoFile,
-                            HttpServletRequest request) {
+                            @SessionAttribute("user") User user
+    ) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
             return "drivers/create";
@@ -89,12 +90,12 @@ public class DriversController {
             }
         }
 
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            User user = (User) session.getAttribute("user");
-            System.out.println("User: " + user);
-            // driver.setCreatedBy(user.getEmail());
-        }
+//        HttpSession session = request.getSession(false);
+//        if (session != null) {
+//            User user = (User) session.getAttribute("user");
+//            System.out.println("User: " + user);
+//            // driver.setCreatedBy(user.getEmail());
+//        }
 
 
         var newDriver = service.add(driver);

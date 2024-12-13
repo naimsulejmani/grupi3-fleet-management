@@ -1,5 +1,7 @@
 package dev.naimsulejmani.grupi3fleetmanagement.models;
 
+import dev.naimsulejmani.grupi3fleetmanagement.infrastructure.AtLeast18YearsOld;
+import dev.naimsulejmani.grupi3fleetmanagement.infrastructure.GreaterThanInYears;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -40,6 +42,10 @@ public class Driver {
     @NotNull(message = "Birth date should not be null")
     @Past(message = "Birth date should be in the past")
     //@GreaterThan18Year() // kete e krijojme vet!
+    //@AtLeast18YearsOld(message = "Driver should be at least 18 years old")
+    //@AtLeastYearsOld(value = 18, message = "Driver should be at least 18 years old")
+//    @AtLeast18YearsOld(message = "Nuk guxon te jete me i vogel se 18 vjet!")
+    @GreaterThanInYears(value = 16, message = "Driver should be at least 16 years old")
     private LocalDate birthDate;
 
 
