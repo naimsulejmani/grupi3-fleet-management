@@ -1,10 +1,7 @@
 package dev.naimsulejmani.grupi3fleetmanagement.dtos;
 
 import dev.naimsulejmani.grupi3fleetmanagement.infrastructure.SameAs;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,7 +39,7 @@ public class UserRegistrationRequestDto {
 
     @Size(min = 3, max = 10, message = "Role must be 10 characters long")
     @NotBlank(message = "Role is not provided, blank or empty")
-    private String role;
+    private String role = "ROLE_USER"; //Role.USER
 
     @Size(min = 5, max = 50, message = "Email must be between 5 and 50 characters long")
     @NotBlank(message = "Email is not provided, blank or empty")
@@ -52,4 +49,7 @@ public class UserRegistrationRequestDto {
     @Size(min = 9, max = 20, message = "Phone must be between 5 and 15 characters long")
     @NotBlank
     private String phone;
+
+    @AssertTrue(message = "You must accept the terms and conditions")
+    private boolean acceptTerms;
 }
