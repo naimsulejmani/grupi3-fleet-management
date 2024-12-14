@@ -208,13 +208,15 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <img src="/assets/img/profile-naja.jpeg" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">N. Sulejmani</span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${session.user.name.substring(0,1)+' .'+ session.user.surname}">
+
+                    </span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>Naim Sulejmani</h6>
-                        <span>Professpr</span>
+                        <h6 th:text="${session.user.name+' '+session.user.surname}"></h6>
+                        <span th:text="${session.user.role.replace('ROLE_','')}"></span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">

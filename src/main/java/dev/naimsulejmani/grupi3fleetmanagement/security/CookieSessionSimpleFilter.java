@@ -20,7 +20,7 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
 
         if (request.getRequestURI().contains("/assets")) {
             filterChain.doFilter(request, response);
-            return;
+            return; // return to stop the execution of the method
         }
 
 //        System.out.println(request.getMethod() + " -> " + request.getRequestURI());

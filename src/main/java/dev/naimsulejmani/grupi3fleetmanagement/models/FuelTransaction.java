@@ -1,6 +1,7 @@
 package dev.naimsulejmani.grupi3fleetmanagement.models;
 
 import dev.naimsulejmani.grupi3fleetmanagement.enums.FuelType;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,10 @@ public class FuelTransaction {
     private String fuelStationNumber;
     private String location;
     private long vehicleId;
-    private long driverId;
+
+    @ManyToOne()
+    private Driver driver;
+//    private long driverId;
     private double quantity;
     private double pricePerQuantity;
     private double totalPrice;
