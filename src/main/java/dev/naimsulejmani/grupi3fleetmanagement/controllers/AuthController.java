@@ -1,5 +1,6 @@
 package dev.naimsulejmani.grupi3fleetmanagement.controllers;
 
+import dev.naimsulejmani.grupi3fleetmanagement.dtos.LoginRequestDto;
 import dev.naimsulejmani.grupi3fleetmanagement.dtos.UserRegistrationRequestDto;
 import dev.naimsulejmani.grupi3fleetmanagement.exceptions.EmailExistException;
 import dev.naimsulejmani.grupi3fleetmanagement.exceptions.UserNameExistException;
@@ -32,23 +33,30 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("loginRequestDto", new LoginRequestDto());
         return "auths/login";
     }
 
     @PostMapping("/login")
     public String login(
-            @ModelAttribute User user
+            @Valid @ModelAttribute LoginRequestDto loginRequestDto, BindingResult bindingResult
             , HttpServletRequest request
             , HttpServletResponse response
             , @RequestParam(value = "returnUrl", required = false) String returnUrl) {
-        var searchUser = badUserService.login(user.getUsername(), user.getPassword());
+
+        var searchUser = badUserService.login(loginRequestDto.getUsername(), loginRequestDto.getPassword());
         if (searchUser == null) {
-            return "redirect:/login";
+            bindingResult.rejectValue("username", "error.loginRequestDto", "Username or password is incorrect");
+            bindingResult.rejectValue("password", "error.loginRequestDto", "Username or password is incorrect");
+            return "auths/login";
         }
         //me vendose cookie e ri per login
         Cookie cookie = new Cookie("user-id", searchUser.getId().toString());
-        cookie.setMaxAge(60 * 60 * 24); // 1 day
+        if (loginRequestDto.isRememberMe()) {
+            cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
+        } else {
+            cookie.setMaxAge(60 * 60); // 1 hour
+        }
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setSecure(false);
