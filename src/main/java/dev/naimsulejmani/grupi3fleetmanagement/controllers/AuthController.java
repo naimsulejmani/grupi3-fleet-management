@@ -4,6 +4,8 @@ import dev.naimsulejmani.grupi3fleetmanagement.dtos.LoginRequestDto;
 import dev.naimsulejmani.grupi3fleetmanagement.dtos.UserRegistrationRequestDto;
 import dev.naimsulejmani.grupi3fleetmanagement.exceptions.EmailExistException;
 import dev.naimsulejmani.grupi3fleetmanagement.exceptions.UserNameExistException;
+import dev.naimsulejmani.grupi3fleetmanagement.exceptions.UserNotFoundException;
+import dev.naimsulejmani.grupi3fleetmanagement.exceptions.WrongPasswordException;
 import dev.naimsulejmani.grupi3fleetmanagement.models.User;
 import dev.naimsulejmani.grupi3fleetmanagement.services.BadUserService;
 import dev.naimsulejmani.grupi3fleetmanagement.services.UserService;
@@ -44,35 +46,44 @@ public class AuthController {
             , HttpServletResponse response
             , @RequestParam(value = "returnUrl", required = false) String returnUrl) {
 
-        var searchUser = badUserService.login(loginRequestDto.getUsername(), loginRequestDto.getPassword());
-        if (searchUser == null) {
-            bindingResult.rejectValue("username", "error.loginRequestDto", "Username or password is incorrect");
-            bindingResult.rejectValue("password", "error.loginRequestDto", "Username or password is incorrect");
+        if (bindingResult.hasErrors()) {
             return "auths/login";
         }
-        //me vendose cookie e ri per login
-        Cookie cookie = new Cookie("user-id", searchUser.getId().toString());
-        if (loginRequestDto.isRememberMe()) {
-            cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
-        } else {
-            cookie.setMaxAge(60 * 60); // 1 hour
+
+        try {
+            var searchUser = userService.login(loginRequestDto.getUsername(), loginRequestDto.getPassword());
+            //me vendose cookie e ri per login
+            Cookie cookie = new Cookie("user-id", searchUser.getId().toString());
+            if (loginRequestDto.isRememberMe()) {
+                cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
+            } else {
+                cookie.setMaxAge(60 * 60); // 1 hour
+            }
+            cookie.setPath("/");
+            cookie.setHttpOnly(true);
+            cookie.setSecure(false);
+            cookie.setDomain("localhost");
+
+            response.addCookie(cookie);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("user", searchUser);
+            session.setAttribute("role", "ROLE_ADMIN");
+
+            if (returnUrl != null && !returnUrl.isBlank()) {
+                return "redirect:" + returnUrl;
+            }
+
+            return "redirect:/";
+        } catch (UserNotFoundException e) {
+            bindingResult.rejectValue("username", "error.loginRequestDto", "User not found");
+            return "auths/login";
+
+        } catch (WrongPasswordException e) {
+            bindingResult.rejectValue("password", "error.loginRequestDto", "Wrong password");
+            return "auths/login";
         }
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
-        cookie.setSecure(false);
-        cookie.setDomain("localhost");
 
-        response.addCookie(cookie);
-
-        HttpSession session = request.getSession();
-        session.setAttribute("user", searchUser);
-        session.setAttribute("role", "ROLE_ADMIN");
-
-        if (returnUrl != null && !returnUrl.isBlank()) {
-            return "redirect:" + returnUrl;
-        }
-
-        return "redirect:/";
     }
 
     @PostMapping("/logout")

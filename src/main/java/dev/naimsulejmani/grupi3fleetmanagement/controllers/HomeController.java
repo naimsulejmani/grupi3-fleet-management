@@ -1,5 +1,6 @@
 package dev.naimsulejmani.grupi3fleetmanagement.controllers;
 
+import dev.naimsulejmani.grupi3fleetmanagement.dtos.UserDto;
 import dev.naimsulejmani.grupi3fleetmanagement.models.User;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,8 +18,8 @@ public class HomeController {
     public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 
-        User user = (User) request.getAttribute("user");
-        model.addAttribute("user", user);
+//        UserDto user = (UserDto) request.getAttribute("user");
+//        model.addAttribute("user", user);
 
 //        Cookie[] cookies = request.getCookies();
 //        if (cookies != null) {
