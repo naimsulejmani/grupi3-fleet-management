@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,6 +30,9 @@ public class FuelProvider {
     private String fiscalNo;
     private String vatNo;
     private String businessNo;
+
+    @OneToMany(mappedBy = "fuelProvider")
+    private List<FuelTransaction> fuelTransactionList; // one to many>
 
 }
 

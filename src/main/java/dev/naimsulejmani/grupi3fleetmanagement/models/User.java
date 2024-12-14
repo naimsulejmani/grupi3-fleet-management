@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -36,6 +38,10 @@ public class User {
 
     @Column(length = 20, nullable = false)
     private String phone;
+
+
+    @OneToMany(mappedBy = "user")
+    private List<FuelTransaction> fuelTransactions;
 }
 
 

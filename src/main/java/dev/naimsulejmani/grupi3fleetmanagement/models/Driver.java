@@ -77,8 +77,12 @@ public class Driver {
     private String photo;
     private String notes;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "driver", fetch = FetchType.LAZY)
     private List<FuelTransaction> fuelTransactions;
     // new Driver()
+
+
+    @OneToOne(mappedBy = "driver")
+    private Vehicle vehicle;
 
 }
