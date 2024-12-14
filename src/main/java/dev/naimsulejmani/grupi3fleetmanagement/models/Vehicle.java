@@ -44,12 +44,12 @@ public class Vehicle {
     private LocalDate deletedAt;
 
 
-    @OneToMany()
+    @OneToMany(mappedBy = "vehicle")
     private List<FuelTransaction> fuelTransactionList;
 
 
     @OneToOne()
-    @JoinColumn(name="driver_id", nullable = true)
+    @JoinColumn(name="driver_id")
     private Driver driver;
 
 }
