@@ -23,6 +23,11 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
             return; // return to stop the execution of the method
         }
 
+        if (request.getRequestURI().startsWith("/api/v1")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
 //        System.out.println(request.getMethod() + " -> " + request.getRequestURI());
 
 

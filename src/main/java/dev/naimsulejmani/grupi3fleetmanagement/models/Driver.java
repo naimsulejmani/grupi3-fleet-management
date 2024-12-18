@@ -50,7 +50,7 @@ public class Driver {
     private LocalDate birthDate;
 
 
-    private char gender;
+    private String gender;
 
     @Column(unique = true, nullable = false, length = 50)
     @Size(min = 5, max = 50, message = "Email must be between 5 and 50 characters long")
