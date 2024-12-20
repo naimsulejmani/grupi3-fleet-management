@@ -3,6 +3,8 @@ package dev.naimsulejmani.grupi3fleetmanagement.services.impls;
 import dev.naimsulejmani.grupi3fleetmanagement.models.Driver;
 import dev.naimsulejmani.grupi3fleetmanagement.repositories.DriverRepository;
 import dev.naimsulejmani.grupi3fleetmanagement.services.DriverService;
+import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,24 +26,25 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public Driver findById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Driver me kete id nuk ekziston: " + id));
     }
 
     @Override
     public Driver add(Driver driver) {
-        //kontrollo a ekziston nje driver me kete id
-        var existingDriver = findById(driver.getId());
 
-        if (existingDriver != null) {
-            System.out.println("Driver me kete id ekziston: " + driver.getId());
-            return null;
+
+        if (driver.getId() != 0) {
+            var existingDriver = repository.findById(driver.getId());
+
+            if (existingDriver.isPresent()) {
+                throw new EntityExistsException("Driver me kete id ekziston: " + driver.getId());
+            }
         }
+
 
         long totalDrivers = repository.countAllByPersonalNoOrEmail(driver.getPersonalNo(), driver.getEmail());
         if (totalDrivers > 0) {
-            System.out.println("Driver me kete personal number ose email ekziston: "
-                    + driver.getPersonalNo() + " ose " + driver.getEmail());
-            return null;
+            throw new EntityExistsException("Driver me kete personal number ose email ekziston: " + driver.getPersonalNo() + " ose " + driver.getEmail());
         }
 
         return repository.save(driver);

@@ -2,6 +2,8 @@ package dev.naimsulejmani.grupi3fleetmanagement.controllers.api.v1;
 
 import dev.naimsulejmani.grupi3fleetmanagement.models.Driver;
 import dev.naimsulejmani.grupi3fleetmanagement.services.DriverService;
+import org.apache.coyote.BadRequestException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +42,9 @@ public class DriverApiController {
 
     @PutMapping("/{id}")
     public Driver update(@PathVariable Long id, @RequestBody Driver driver) {
+        if(id!=driver.getId()){
+            throw new IllegalArgumentException ("Driver id does not match the id in the path");
+        }
         return service.modify(driver);
     }
 
