@@ -1,5 +1,6 @@
 package dev.naimsulejmani.grupi3fleetmanagement.controllers;
 
+import dev.naimsulejmani.grupi3fleetmanagement.dtos.UserDto;
 import dev.naimsulejmani.grupi3fleetmanagement.helpers.FileHelper;
 import dev.naimsulejmani.grupi3fleetmanagement.models.Driver;
 import dev.naimsulejmani.grupi3fleetmanagement.models.User;
@@ -70,7 +71,7 @@ public class DriversController {
     public String addDriver(@Valid @ModelAttribute Driver driver, BindingResult bindingResult
             , RedirectAttributes redirectAttributes,
                             @RequestParam("photoFile") MultipartFile photoFile,
-                            @SessionAttribute("user") User user
+                            @SessionAttribute("user") UserDto user
     ) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);

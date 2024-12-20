@@ -8,24 +8,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "fuel_transactions")
 public class FuelTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "receipt_number", length = 25, nullable = false)
     private String receiptNumber;
 
     @ManyToOne()
     @JoinColumn(name="fuel_provider_id")
     private FuelProvider fuelProvider;
 
+    @Column(length = 100, nullable = false)
     private String fuelStationNumber;
+
+    @Column(length = 100)
     private String location;
 
     @ManyToOne()
@@ -43,17 +48,32 @@ public class FuelTransaction {
     private User user;
 
 //    private long driverId;
+    @Column(nullable = false, columnDefinition = "DOUBLE")
     private double quantity;
+    @Column(nullable = false, columnDefinition = "DOUBLE")
     private double pricePerQuantity;
+    @Column(nullable = false, columnDefinition = "DOUBLE")
     private double totalPrice;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
     private FuelType fuelType;
+
+    @Column(nullable = false)
     private LocalDate date;
+
+    @Column(length = 1000)
     private String comment;
+
+    @Column(nullable = false, length = 50)
     private String createdBy;
-    private LocalDate createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(length = 50)
     private String modifiedBy;
-    private LocalDate modifiedAt;
-    private String deletedBy;
-    private LocalDate deletedAt;
+
+    private LocalDateTime modifiedAt;
 
 }
