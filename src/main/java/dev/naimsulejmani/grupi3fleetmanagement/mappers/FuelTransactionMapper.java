@@ -6,9 +6,11 @@ import dev.naimsulejmani.grupi3fleetmanagement.models.FuelTransaction;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 
+@Primary
 @Mapper(componentModel = "spring")
 public interface FuelTransactionMapper extends SimpleMapper<FuelTransaction, FuelTransactionDto> {
     FuelTransactionMapper INSTANCE = Mappers.getMapper(FuelTransactionMapper.class);

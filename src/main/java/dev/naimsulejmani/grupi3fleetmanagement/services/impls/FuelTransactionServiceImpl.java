@@ -18,7 +18,7 @@ public class FuelTransactionServiceImpl implements FuelTransactionService {
     private final FuelTransactionMapper mapper;
 
     public FuelTransactionServiceImpl(FuelTransactionRepository repository
-            , @Qualifier("fuelTransactionMapperImpl") FuelTransactionMapper mapper) {
+            , FuelTransactionMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }

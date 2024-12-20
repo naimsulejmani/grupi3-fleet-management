@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FuelProviderRepository extends JpaRepository<FuelProvider, Long> {
-    // var fuelProviderRepository = new FuelProviderRepository();
+
 }

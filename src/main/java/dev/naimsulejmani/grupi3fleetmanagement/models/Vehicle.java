@@ -16,33 +16,51 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "vehicles")
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String isbn;
+    @Column(unique = true, nullable = false, length = 17)
+    private String vin;
+    @Column(unique = true, nullable = false, length = 20)
     private String plate;
+    @Column(nullable = false, length = 50)
     private String model;
+    @Column(nullable = false, length = 50)
     private String brand;
+    @Column(nullable = false)
     private int year;
+    @Column(nullable = false, length = 50)
     private String color;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 15)
     private VehicleType type;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 15)
     private FuelType fuelType;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 15)
     private TransmissionType transmission;
+    @Column(nullable = false)
     private float engine;
+    @Column(nullable = false)
     private int power;
+    @Column(nullable = false)
     private double mileage;
+
     private double currentPrice;
+    @Column(nullable = false)
     private boolean registered;
-    private LocalDate registeredTill;
+    private LocalDate registeredAt;
+    private LocalDate registrationExpiresAt;
+    @Column(nullable = false, length = 50)
     private String createdBy;
+    @Column(nullable = false)
     private LocalDate createdAt;
     private String modifiedBy;
     private LocalDate modifiedAt;
-    private String deletedBy;
-    private LocalDate deletedAt;
-
 
     @OneToMany(mappedBy = "vehicle")
     private List<FuelTransaction> fuelTransactionList;
