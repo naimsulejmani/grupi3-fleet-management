@@ -1,6 +1,8 @@
 package dev.naimsulejmani.grupi3fleetmanagement.exceptions;
 
-public class UserNameExistException extends RuntimeException {
+import jakarta.persistence.EntityExistsException;
+
+public class UserNameExistException extends EntityExistsException {
     public UserNameExistException(String message) {
         super(message);
     }

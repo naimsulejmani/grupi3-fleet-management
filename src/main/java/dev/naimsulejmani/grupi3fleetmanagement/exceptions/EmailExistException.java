@@ -1,6 +1,8 @@
 package dev.naimsulejmani.grupi3fleetmanagement.exceptions;
 
-public class EmailExistException extends RuntimeException {
+import jakarta.persistence.EntityExistsException;
+
+public class EmailExistException extends EntityExistsException {
     public EmailExistException(String message) {
         super(message);
     }

@@ -30,6 +30,7 @@ public class DriverApiController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Driver add(@RequestBody Driver driver) {
         return service.add(driver);
     }
