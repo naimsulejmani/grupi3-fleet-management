@@ -24,7 +24,7 @@ public class FuelTransaction {
     private String receiptNumber;
 
     @ManyToOne()
-    @JoinColumn(name="fuel_provider_id")
+    @JoinColumn(name = "fuel_provider_id")
     private FuelProvider fuelProvider;
 
     @Column(length = 100, nullable = false)
@@ -34,25 +34,25 @@ public class FuelTransaction {
     private String location;
 
     @ManyToOne()
-    @JoinColumn(name="vehicle_id")
+    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
 
     //driver_id INT NOT NULL REFERENCES drivers(id),
     @ManyToOne()
-    @JoinColumn(name="driver_id")
+    @JoinColumn(name = "driver_id")
     private Driver driver;
 
     @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
 
-//    private long driverId;
-    @Column(nullable = false, columnDefinition = "DOUBLE")
+    //    private long driverId;
+    @Column(nullable = false)
     private double quantity;
-    @Column(nullable = false, columnDefinition = "DOUBLE")
+    @Column(nullable = false)
     private double pricePerQuantity;
-    @Column(nullable = false, columnDefinition = "DOUBLE")
+    @Column(nullable = false)
     private double totalPrice;
 
     @Enumerated(EnumType.STRING)

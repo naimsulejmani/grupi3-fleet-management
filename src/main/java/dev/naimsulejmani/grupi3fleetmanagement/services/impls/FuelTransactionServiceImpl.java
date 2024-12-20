@@ -59,7 +59,7 @@ public class FuelTransactionServiceImpl implements FuelTransactionService {
     }
 
     @Override
-    public void remove(Long id) {
+    public void removeById(Long id) {
         if (!repository.existsById(id)) {
             throw new EntityNotFoundException("FuelTransaction with id " + id + " not found");
         }

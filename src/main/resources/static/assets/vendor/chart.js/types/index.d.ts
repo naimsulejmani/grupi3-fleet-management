@@ -786,8 +786,8 @@ export declare const layouts: {
 
   /**
    * Remove a layoutItem from a chart
-   * @param {Chart} chart - the chart to remove the box from
-   * @param {LayoutItem} layoutItem - the item to remove from the layout
+   * @param {Chart} chart - the chart to removeById the box from
+   * @param {LayoutItem} layoutItem - the item to removeById from the layout
    */
   removeBox(chart: Chart, layoutItem: LayoutItem): void;
 
@@ -2165,9 +2165,9 @@ export declare class BasePlatform {
   addEventListener(chart: Chart, type: string, listener: (e: ChartEvent) => void): void;
   /**
    * Removes the specified listener previously registered with addEventListener.
-   * @param {Chart} chart - Chart from which to remove the listener
-   * @param {string} type - The ({@link ChartEvent}) type to remove
-   * @param listener - The listener function to remove from the event target.
+   * @param {Chart} chart - Chart from which to removeById the listener
+   * @param {string} type - The ({@link ChartEvent}) type to removeById
+   * @param listener - The listener function to removeById from the event target.
    */
   removeEventListener(chart: Chart, type: string, listener: (e: ChartEvent) => void): void;
   /**

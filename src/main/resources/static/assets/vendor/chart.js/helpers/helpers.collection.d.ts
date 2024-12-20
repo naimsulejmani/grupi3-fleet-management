@@ -52,7 +52,7 @@ export interface ArrayListener<T> {
     _onDataUnshift?(...item: T[]): void;
 }
 /**
- * Hooks the array methods that add or remove values ('push', pop', 'shift', 'splice',
+ * Hooks the array methods that add or removeById values ('push', pop', 'shift', 'splice',
  * 'unshift') and notify the listener AFTER the array has been altered. Listeners are
  * called on the '_onData*' callbacks (e.g. _onDataPush, etc.) with same arguments.
  */

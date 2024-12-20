@@ -194,7 +194,7 @@ export default class DatasetController {
        */
     protected includeOptions(mode: any, sharedOptions: any): boolean;
     /**
-     * @todo v4, rename to getSharedOptions and remove excess functions
+     * @todo v4, rename to getSharedOptions and removeById excess functions
      */
     _getSharedOptions(start: any, mode: any): {
         sharedOptions: any;

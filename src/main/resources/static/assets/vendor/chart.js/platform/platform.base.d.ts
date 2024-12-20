@@ -29,9 +29,9 @@ export default class BasePlatform {
     addEventListener(chart: Chart, type: string, listener: Function): void;
     /**
        * Removes the specified listener previously registered with addEventListener.
-       * @param {Chart} chart - Chart from which to remove the listener
-       * @param {string} type - The ({@link ChartEvent}) type to remove
-       * @param {function} listener - The listener function to remove from the event target.
+       * @param {Chart} chart - Chart from which to removeById the listener
+       * @param {string} type - The ({@link ChartEvent}) type to removeById
+       * @param {function} listener - The listener function to removeById from the event target.
        */
     removeEventListener(chart: Chart, type: string, listener: Function): void;
     /**

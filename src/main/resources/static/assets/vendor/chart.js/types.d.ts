@@ -1,6 +1,6 @@
 /**
  * Temporary entry point of the types at the time of the transition.
- * After transition done need to remove it in favor of index.ts
+ * After transition done need to removeById it in favor of index.ts
  */
 export * from './index.js';
 /**

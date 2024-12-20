@@ -1837,13 +1837,13 @@
   white-space: nowrap !important;
 }
 
-/* rtl:begin:remove */
+/* rtl:begin:removeById */
 .text-break {
   word-wrap: break-word !important;
   word-break: break-word !important;
 }
 
-/* rtl:end:remove */
+/* rtl:end:removeById */
 .text-primary {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;

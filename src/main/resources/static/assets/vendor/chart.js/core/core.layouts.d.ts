@@ -8,8 +8,8 @@ declare namespace _default {
     function addBox(chart: import("./core.controller.js").default, item: LayoutItem): void;
     /**
        * Remove a layoutItem from a chart
-       * @param {Chart} chart - the chart to remove the box from
-       * @param {LayoutItem} layoutItem - the item to remove from the layout
+       * @param {Chart} chart - the chart to removeById the box from
+       * @param {LayoutItem} layoutItem - the item to removeById from the layout
        */
     function removeBox(chart: import("./core.controller.js").default, layoutItem: LayoutItem): void;
     /**
